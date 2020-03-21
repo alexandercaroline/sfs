@@ -1,0 +1,28 @@
+<%- include('./partials/clientheader') %>
+<% crops.forEach(crop => { %>
+    <div class="container py-3 mt-4" style="margin-bottom: 20px;">
+        <div class="card">
+          <div class="row ">
+              <div class="col-md-4 pt-3">
+                <img style="width: 100%;height:200px;" src="<%=crop.image%>" class="w-100">
+              </div>
+              <div class="col-md-8 px-3">
+                <div class="card-block px-3">
+                  <h4 class="card-title">Product: <%=crop.name%></h4>
+                  <p class="card-text">Quantity: <%=crop.quantity%> </p>
+                  <p class="card-text">Price : <%=crop.price%></p>
+                <p class="card-text">Seller Name:<%=`${crop.fname} ${crop.lname}`%></p>
+                  <p class="card-text">Seller Phone : <%=crop.phoneno%></p>
+                  <p class="card-text">Location : <%=`${crop.location} , ${crop.county}`%></p>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+<% }); %>
+  
+<%- include('./partials/footer') %>
+  
+  

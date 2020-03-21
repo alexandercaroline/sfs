@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SFS Farmer Corner</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/stylee.css">
+
+
+</head>
+<div class="navbar">
+  
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#" style="color: white">SFS</a><br><br>
+        </div>
+          <div class="collapse navbar-collapse" id="myNavbar" >
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Crops Details<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="">Maize</a></li><hr>
+            <li><a href="strawberry.html">Strawberry</a></li><hr>
+            <li><a href="#">Passion</a></li>
+          </ul>
+        </li>
+        <li><a href="orderedCrops.html">Ordered Products</a></li>
+        <li><a href="uploadfile.html">Uploads</a></li>
+        <li> <a href="viewSales.html"> View Sales</a></li>
+        <li> <a href=""> Help</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href=""><span class="glyphicon glyphicon-user"></span> Contact US</a></li>
+        <li><a href=""><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+       
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                </li>
+            </ul>
+            <!-- end dropdown-user -->
+        </li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+
+<body>
+
+ 
+  
+  <div class="container">
+    <style>
+      #myInput {
+  background-image: url('/css/searchicon.png');
+      }
+    </style>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ...">
+  <table class="table table-bordered" id="orderedCropsTable">
+    <thead>
+      <tr>
+        <th scope="col">Crop Name/ID</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Time posted</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row"> e.g maize</td>
+        <td> 20 bags </td>
+        <td>i need 20 bag of maize , location meru</td>
+        <td>1000 per bag, negotiable</td>
+        <td>3 hrs ago</td>
+        
+      </tr>
+      <tr>
+        <td> Strawberry</td>
+        <td>20 bags</td>
+        <td>asdfhjkl,mnbvcxv</td>
+        <td>23456</td>
+        <td>90 2 mins ago</td>
+
+      </tr>
+     
+    </tbody>
+  </table>
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("orderedCropsTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+
+</div>
+<!-- start footer-->
+    <div class="footer " class="fixed-bottom">
+        <div class="inner-footer">
+        <div class="footer-items">
+        <h1>SFS</h1>
+        <p>The Kenya National Blood Transfusion Service (KNBTS) was established in the year 2000 in the Ministry of Health. Its mandate is to collect, test, and process and distribute blood and blood products to all transfusing hospitals in Kenya.</p>
+        </div>
+        <div class="footer-items">
+        <h2>Social media</h2>
+        <div class="border"></div>
+        <ul>
+        
+        <a href=""><li>Facebook</li></a>
+        <a href=""><li>Twitter</li></a>
+        <a href=""><li></li></a>
+        </ul>
+        </div>
+         <div class="footer-items">
+        <h2>Contact Us</h2>
+        <div class="border"></div>
+        <ul>
+        <li><i class="glyphicon glyphicon-map-marker " aria-hidden="true"></i>P.O Box 222 Nairobi</li>
+        <li><i class="glyphicon glyphicon-phone  "aria-hidden="true"></i>+254 0202012867</li>
+        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>info@nbtskenya.or.ke</li>
+        
+        </ul>
+        
+        </div>
+        
+        
+        
+        </div>
+        </div>
+        <div class="footer-bottom">
+        copyright &copy; All Rights Reserved.
+        </div>
+        <!--end footer-->
+     
+</body>
+
+
+</html>
