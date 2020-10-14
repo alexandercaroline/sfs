@@ -1,0 +1,45 @@
+
+<%- include('./partials/clientheader') %>  
+  
+<div class="container">
+    <h4 class="text-center">My Orders</h4>
+    <table class="table table-bordered" id="farmerTable">
+      <thead>
+        <tr>
+          <th scope="col">Crop Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Description</th>
+       
+        </tr>
+      </thead>
+      <tbody>
+       
+         <%products.forEach((product)=>{%>
+         <tr>
+          <td scope="row"><%=product.name%></td>
+          <td><%=product.quantity%> </td>
+          <td><%=product.description%></td>
+   
+             <td>
+                 <div class="row">
+                   
+                    <div class="col-xs-12">
+                      <form action="/client/removeorder/<%=product.id%>" method="get">
+                        <button class="btn btn-sm btn-primary">Remove</button>
+                      </form>
+                      
+                    </div>
+                 </div>
+             </td> 
+     
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+    
+    </div>
+
+      
+<%- include('./partials/footer') %>
+  
+  

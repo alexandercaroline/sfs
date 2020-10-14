@@ -16,7 +16,7 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/login',(req,res)=>{
-    res.render('admin')
+    res.render('adminlogin')
 })
 
 router.post('/login',admincon.login)

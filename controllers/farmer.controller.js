@@ -8,7 +8,7 @@ exports.farmerhome= (req,res) => {
     db.query(sql,(err,results)=>{
        if(err){
            console.log(err)
-           res.render('farmerhome',{
+           res.render('farmer/farmerhome',{
                crops : []
            })
            return
@@ -20,14 +20,14 @@ exports.farmerhome= (req,res) => {
                crops.push(row.name)
            })
            
-           res.render('farmerhome',{
+           res.render('farmer/farmerhome',{
              crops : crops
            })
            global.cropsBackup = crops
           return
        }
  
-       res.render('farmerhome',{
+       res.render('farmer/farmerhome',{
          crops : []
        })
        global.cropsBackup = []
@@ -42,7 +42,7 @@ exports.farmerhome= (req,res) => {
    fs.rename(tempPath,targetPath, err =>{
      if(err){
       
-        res.render('addproduct',{
+        res.render('farmer/addproduct',{
            crops: global.cropsBackup,
            error : true
         })
@@ -53,22 +53,75 @@ exports.farmerhome= (req,res) => {
      db.query(sql,(err,results)=>{
         if(err){
           console.log(err)
-          res.render('addproduct',{
+          res.render('farmer/addproduct',{
             crops: global.cropsBackup,
             error : true
            })
            return
         }
 
-        res.render('addproduct',{
+        res.render('farmer/addproduct',{
           crops: global.cropsBackup,
           error : false
          })
      })
-
-  
-
    })
+ }
 
-  
+ exports.getMyProducts = (req,res) => {
+  let sql = `SELECT * FROM farmer_uploads WHERE farmerID = ${req.session.userId}`
+ 
+  db.query(sql,(err,results)=>{
+     if(err){
+         res.redirect('/')
+         return
+     }
+   
+     if(results.length > 0){
+         let products = []
+
+         results.forEach((row) =>{
+            products.push(row)
+         })
+         console.log(products)
+         res.render('farmer/myproducts',{
+          crops : cropsBackup,
+          products : products
+        })
+        return
+     }
+
+      res.render('farmer/myproducts',{
+        crops : cropsBackup,
+        products :[]
+      })
+  })
+   
+ }
+
+ exports.setSold = (req,res) =>{
+   let sql = `UPDATE farmer_uploads SET sold = 1 WHERE id = ${req.params.id}`
+
+   db.query(sql,(err,results)=>{
+    if(err){
+      console.log(err)
+    }
+    res.redirect('/farmer/myproducts')
+ })
+ }
+
+ exports.orderedProducts = (req,res) => {
+  let sql = 'SELECT * FROM orders JOIN client ON orders.clientID = client.clientID'
+
+  db.query(sql,(err,results) => {
+       if(err){
+          home(req,res)
+          return
+       }
+
+       res.render('orders',{
+           crops : cropsBackup,
+           products: results
+       })
+  })
  }

@@ -1,0 +1,47 @@
+
+<%- include('../partials/farmerheader') %>  
+  
+<div class="container">
+    <h4 class="text-center">My PRODUCTS</h4>
+    <table class="table table-bordered" id="farmerTable">
+      <thead>
+        <tr>
+          <th scope="col">Crop Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+         <%products.forEach((product)=>{%>
+         <tr>
+          <td scope="row"><%=product.name%></td>
+          <td><%=product.quantity%> </td>
+          <td><%=product.price%></td>
+          <%if(product.sold){ %>
+            <td class="success">Sold Out</td>
+          <% }else{ %>
+             <td class="danger">
+                 <div class="row">
+                    <div class="col-xs-6">Pending</div>
+                    <div class="col-xs-6">
+                      <form action="/farmer/setsoldproduct/<%=product.id%>" method="get">
+                        <button class="btn btn-sm btn-primary">Set Sold</button>
+                      </form>
+                      
+                    </div>
+                 </div>
+             </td> 
+          <%}%>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+    
+    </div>
+
+      
+<%- include('../partials/footer') %>
+  
+  

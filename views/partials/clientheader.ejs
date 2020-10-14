@@ -27,7 +27,8 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/client/clienthome">Home</a></li>
             <li><a href="/client/onsale">Onsale Products</a></li><!-- Uploaded Products-->
-            <li><a href="">Make order</a></li>
+            <li><a href="/client/makeorder">Make order</a></li>
+            <li><a href="/client/myorders">My orders</a></li>
             <% if(crops.length > 0){ %>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Crops Details<span class="caret"></span></a>
@@ -48,10 +49,8 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href=""><span class="glyphicon glyphicon-user"></span> Contact US</a></li>
-            
-                    <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
-                    </li>
-                </ul>
+            <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
+           </ul>
                 <!-- end dropdown-user -->
             </li>
             </li>

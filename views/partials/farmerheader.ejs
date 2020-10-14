@@ -42,9 +42,22 @@
             </ul>
           </li>
          <% } %>
-        <li><a href="orderedCrops.html">Ordered Products</a></li>
-        <li><a href="/farmer/addproduct">Uploads</a></li>
-        <li> <a href="viewSales.html"> View Sales</a></li>
+        <li><a href="/farmer/orders">Ordered Products</a></li>
+       
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Products <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+                <li class="dropdown-item" >
+                  <a href="/farmer/addproduct">Add Product</a>
+                </li>  
+                <hr>
+                <li class="dropdown-item" >
+                  <a href="/farmer/myproducts">My Products</a>
+                </li>  
+                <hr>
+          </ul>
+        </li>
+      
         <li> <a href=""> Help</a></li>
         
       </ul>

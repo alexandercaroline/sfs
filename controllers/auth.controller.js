@@ -52,7 +52,7 @@ exports.login = (req,res) => {
             //console.log("founnd")
             let valid = await auth.confirm(req.body.password,results[0].password)
             if(valid) {
-                console.log("OPOPOPOP")
+                
                // console.log(results)
                 req.session.userId = results[0].farmerID
                 req.session.isFarmer = true

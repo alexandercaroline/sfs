@@ -1,0 +1,58 @@
+<%- include('./partials/clientheader') %>
+
+
+  
+  <div class="container">
+
+        <% try { if(!error) { %>
+          <div class="alert alert-success text-center" role="alert">
+              Order Added Successfully!
+          </div>
+        <% }else if(error != undefined ) {%>
+          <div class="alert alert-danger text-center" role="alert">
+           Order not added , try again !
+          </div>
+        <% } }catch(e){} %>
+        <h3 class="text-info">Make Order</h3>
+        <p><strong>Note:</strong> Kindly upload the details of products</p>
+        <!--image file upoad sample-->
+        <div class="box">
+          <!-- fileuploader view component -->
+          <form action="/client/makeorder" method="post" class="text-center" >
+
+          <!-- start table -->
+         
+          <table class="table table-bordered" id="farmerTable">
+            <thead>
+              <tr>
+                <th scope="col">Crop Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">
+                  <input type="text" name="name" ></td>
+                <td><input name="quantity" type="text"> </td>
+                <td><textarea name="description" > </textarea></td>
+                <td>
+                 <form action="/client/removeorder/<%=product.id%>" method="get">
+                  <button class="btn btn-primary btn-sm" type="submit" value="submit"> Submit</button>
+
+                 </form>
+                </td>
+              </tr>
+             
+            </tbody>
+          </table>
+      
+          </form>
+        </div>
+        <hr>
+      </div>
+
+
+      <%- include('./partials/footer') %>
+  
