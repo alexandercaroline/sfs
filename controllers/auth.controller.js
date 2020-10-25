@@ -56,6 +56,7 @@ exports.login = (req,res) => {
                // console.log(results)
                 req.session.userId = results[0].farmerID
                 req.session.isFarmer = true
+                req.session.isAdmin = false
                 res.redirect('/welcome')
                 return
             }
@@ -82,6 +83,7 @@ exports.login = (req,res) => {
                 if(valid) {
                     req.session.userId = results[0].clientID
                     req.session.isFarmer = false
+                    req.session.isAdmin = false
                     res.redirect('/welcome')
                     return
                 }
@@ -112,7 +114,7 @@ exports.login = (req,res) => {
 exports.logout = (req,res) => {
    req.session.userId = undefined
    req.session.isFarmer = undefined
-   req.session.admin = undefined
+   req.session.isAdmin = undefined
    req.session.destroy(function(err) {
       res.redirect('/')
    })

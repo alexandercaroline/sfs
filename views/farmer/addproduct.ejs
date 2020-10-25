@@ -35,7 +35,7 @@
               <!--file input example -->
            <span class="control-fileupload">
             <label for="file" style="float:left">Choose a file :</label>
-            <input name="file" onchange="loadFile(event)" accept="image/gif, image/jpeg, image/png" type="file" id="file">
+            <input required="true" name="file" onchange="loadFile(event)" accept="image/gif, image/jpeg, image/png" type="file" id="file">
           </span>
           <!--./file input example -->
           <!-- <p>&nbsp;</p> -->
@@ -59,8 +59,8 @@
               <tr>
                 <td scope="row">
                   <input type="text" name="name" ></td>
-                <td><input name="quantity" type="text"> </td>
-                <td><input name="price" type="text"></td>
+                <td><input name="quantity" required type="text"> </td>
+                <td><input name="price" required type="text"></td>
                 <td>
                   <button class="btn btn-primary btn-sm" type="submit" value="submit"> Submit</button>
                   <button class="btn btn-danger btn-sm" type="button" value="delete"> Cancel</button>

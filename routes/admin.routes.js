@@ -8,11 +8,11 @@ const router = express.Router()
 const admincon = require('../controllers/admin.controller')
 
 router.get('/',(req,res)=>{
-   if(req.session.userId == undefined){
+   if(req.session.userId == undefined || req.session.isAdmin == false){
        res.render('adminlogin')
        return
    }
-   res.render('admin')
+   res.render('admin/admin')
 })
 
 router.get('/login',(req,res)=>{
@@ -21,10 +21,30 @@ router.get('/login',(req,res)=>{
 
 router.post('/login',admincon.login)
 
+router.get('/addcrop',(req,res)=>{
+    res.render('admin/addcrop')
+})
+
+router.get('/viewclients',(req,res)=>{
+    res.render('admin/viewclients')
+})
+
+router.get('/viewfarmers',(req,res)=>{
+    res.render('admin/viewfarmers') 
+})
+
+router.get('/vieworders',(req,res)=>{
+    res.render('admin/vieworders') 
+})
+
+router.get('/viewproducts',(req,res)=>{
+    res.render('admin/viewproducts') 
+})
+
+
+
 router.post('/addcrop',admincon.addcrop)
 
-router.get('/addcrop',(req,res)=>{
-    res.render('admin')
-})
+
 
 module.exports = router

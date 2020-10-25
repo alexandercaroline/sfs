@@ -34,11 +34,11 @@
             <tbody>
               <tr>
                 <td scope="row">
-                  <input type="text" name="name" ></td>
-                <td><input name="quantity" type="text"> </td>
-                <td><textarea name="description" > </textarea></td>
+                  <input required type="text" name="name" ></td>
+                <td><input required name="quantity" type="text"> </td>
+                <td><textarea required name="description" > </textarea></td>
                 <td>
-                 <form action="/client/removeorder/<%=product.id%>" method="get">
+                 <form action="/client/makeorder" method="get">
                   <button class="btn btn-primary btn-sm" type="submit" value="submit"> Submit</button>
 
                  </form>
