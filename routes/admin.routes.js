@@ -25,21 +25,17 @@ router.get('/addcrop',(req,res)=>{
     res.render('admin/addcrop')
 })
 
-router.get('/viewclients',(req,res)=>{
-    res.render('admin/viewclients')
-})
+router.get('/viewclients',admincon.getViewClients)
+router.get('/client/remove/:id',admincon.removeClient)
 
-router.get('/viewfarmers',(req,res)=>{
-    res.render('admin/viewfarmers') 
-})
+router.get('/viewfarmers',admincon.getViewFarmers)
+router.get('/farmer/remove/:id',admincon.removeFarmer)
 
-router.get('/vieworders',(req,res)=>{
-    res.render('admin/vieworders') 
-})
+router.get('/vieworders',admincon.getViewOrders)
+router.get('/order/remove/:id',admincon.removeOrder)
 
-router.get('/viewproducts',(req,res)=>{
-    res.render('admin/viewproducts') 
-})
+router.get('/viewproducts',admincon.getViewProducts)
+router.get('/product/remove/:id',admincon.removeProduct)
 
 
 

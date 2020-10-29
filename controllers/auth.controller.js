@@ -1,6 +1,6 @@
 
 let auth = require('../auth/auth')
-
+let mailer = require('../mail/mailer')
 //handles the login request
 exports.login = (req,res) => {
    let errors = { }
@@ -140,17 +140,23 @@ exports.farmersignup = async (req,res) =>{
     error = errors.error
 
     
-        if( errors.passwordError == undefined && password.length < 8){
-            errors.passwordError = " Password should  be more than 7 characters"
-            error = true
-        }
+    if( errors.passwordError == undefined && password.length < 8){
+        errors.passwordError = " Password should  be more than 7 characters"
+        error = true
+    }
 
-        if(errors.passwordError == undefined  && (password !== conPassword)){
-            errors.passwordError = " Password do not match"
-            errors.conPasswordError= "Password do not  match"
+    if(errors.passwordError == undefined  && (password !== conPassword)){
+        errors.passwordError = " Password do not match"
+        errors.conPasswordError= "Password do not  match"
+        error = true
+    }
+    
+    if (phoneError == undefined){
+        if((phone.charAt(0) == '0' && phone.length != 10) || (phone.charAt(0) == '2' && phone.length != 12)){
+            errors.phoneError = "Enter valid phone number"
             error = true
         }
-   
+    }
     
     //if user found return the message and id
     if(error){
@@ -301,7 +307,117 @@ function checkEmpty(password,email,fName,lName,phone,conPassword,location = "non
         errors.error = true
     }
     
-    
-
     return errors;
+}
+
+
+async function sendMail(res,req,user){
+    let code =  Math.floor(1000 + Math.random() * 9000);
+   
+    let response = await mailer.sendMail(req.body.email,"SFS PASSWORD RESET CODE",`${code}`)
+  
+    if(response){
+         let sql = `INSERT INTO  reset_code(email,code,user) VALUES('${req.body.email}','${code}',''${user}')`
+         db.query(sql,(err,results) => {
+             if(err){
+                console.log(err)
+             }
+      
+             res.render('changepassword')
+        })
+    }else{
+        res.render('forgotpassword',{
+            errors : {emailError : "Failed to send code"},
+            models : {
+                email : req.body.email
+            }
+        }) 
+    }
+}
+exports.forgotPassword = async (req,res) =>{
+
+    let sql = "SELECT * FROM farmer WHERE  email = '"+req.body.email+"'"
+    //query the db
+    db.query(sql,async (err,results)=>{
+          // console.log("search")
+        if(err){
+            console.log(err)
+        }
+
+        if(results.length > 0){
+            sendMail(res,req,'farmer')
+        }else {
+          let sql = "SELECT * FROM client WHERE  email = '"+req.body.email+"'"
+     
+          db.query(sql,async (err,results)=>{ 
+            if(err){
+                console.log("err")
+            }
+           
+            if(results.length > 0){
+                sendMail(res,req,'client')
+            }else{
+                res.render('forgotpassword',{
+                    errors : {emailError : "Not a valid user"},
+                    models : {
+                        email : req.body.email
+                    }
+                }) 
+            }
+
+          })
+
+        }}) 
+}
+
+exports.changePassword = (req,res) =>{
+    let sql = `SELECT * FROM reset_code WHERE code = '${req.body.code}'`
+
+    if( req.body.password.length < 8){
+        res.render('changepassword',{
+            errors : { passwordError : "Password must the 8 characters or more" },
+            models : {
+                email : req.body.email,
+                password : req.body.password
+            }
+        }) 
+        return
+    }
+    
+    db.query(sql,async (err,results)=>{ 
+        if(err){
+            console.log("err")
+            return
+        }
+       
+        if(results.length > 0){
+            let newHash =  await auth.hash(password)
+            let sql= `UPDATE ${result.user} SET password = ${newHash} WHERE email = ${req.body.email}`
+            db.query(sql,async (err,results)=>{ 
+                if(err){
+                    res.render('changepassword',{
+                        errors : { passwordError : "Error changing password " },
+                        models : {
+                            email : req.body.email,
+                            password : req.body.password
+                        }
+                    }) 
+                    return
+                }
+
+                res.redirect('/login')
+            })
+           
+        }else{
+            res.render('changepassword',{
+                errors : { codeError : "Code not a valid " },
+                models : {
+                    email : req.body.email,
+                    password : req.body.password
+                }
+            }) 
+        }
+
+      })
+
 }

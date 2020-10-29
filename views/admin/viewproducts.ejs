@@ -1,8 +1,8 @@
 <%- include('./partials/header') %>
 
 <div class="container">
-    <h4 class="text-center">View Clients</h4>
-    <table class="table table-bordered" id="farmerTable">
+    <h4 class="text-center">View Products</h4>
+    <table class="table table-bproducted" id="farmerTable">
       <thead>
         <tr>
           <th scope="col"> Farmer Name</th>
@@ -16,23 +16,22 @@
         </tr>
       </thead>
       <tbody>
-       
-  
-         <tr>
-            <td>Jihn maina</td>
-            <td>Meru</td>
-            <td>0712345678</td>
-            <td>Maize</td>
-            <td>2355</td>
-            <td>khs. 2000</td>
 
-
+                
+        <% products.forEach(product => { %>
+          <tr>
+            <td><%=`${product.fname} ${product.lname}`%></td>
+            <td><%=`${product.county}, ${product.location}`%></td>
+            <td><%=product.phoneno%></td>
+            <td><%=product.name%></td>
+            <td><%=product.quantity%></td>>
+            <td><%=product.price%></td>
              <td>
                  <div class="row">
                    
                     <div class="col-xs-12">
-                      <form >
-                        <button class="btn btn-sm btn-danger">Remove</button>
+                      <form method="GET" action="/admin/product/remove/<%=product.id%>" >
+                         <button class="btn btn-sm btn-danger">Remove</button>
                       </form>
                       
                     </div>
@@ -40,6 +39,7 @@
              </td> 
      
         </tr>
+        <%   }) %>
 
       </tbody>
     </table>

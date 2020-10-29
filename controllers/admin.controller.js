@@ -87,4 +87,142 @@ exports.addcrop = (req,res) => {
         console.log("YEAH")
         res.send("OK")
     })
+
+    
+}
+exports.getViewClients= (req,res) => {
+    let sql = 'SELECT * FROM client'
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+      let clients = []
+      if(err){
+          console.log(err)
+      }
+
+      if(results.length > 0){
+          clients = results
+      }
+
+      res.render('admin/viewclients',{ clients : clients})
+    })
+}
+
+
+exports.removeClient = (req,res) =>{
+    let sql = `DELETE FROM orders WHERE clientID =${req.params.id}`
+    let sql2 = `DELETE FROM client WHERE clientID = ${req.params.id}`
+
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+          res.redirect('/admin/viewclients')
+          return
+        }
+
+        db.query(sql2,(err,results)=>{
+            if(err){
+              console.log(err)
+            }
+            res.redirect('/admin/viewclients')
+         })
+        
+     })
+}
+
+exports.getViewFarmers = (req,res) => {
+    let sql = 'SELECT * FROM farmer'
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+      let farmers = []
+      if(err){
+          console.log(err)
+      }
+
+      if(results.length > 0){
+          farmers = results
+      }
+
+      res.render('admin/viewfarmers',{ farmers : farmers })
+    })
+}
+
+exports.removeFarmer = (req,res) =>{
+    let sql = `DELETE FROM farmer_uploads WHERE farmerID =${req.params.id}`
+    let sql2 = `DELETE FROM farmer WHERE farmerID = ${req.params.id}`
+
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+          res.redirect('/admin/viewfarmers')
+          return
+        }
+
+        db.query(sql2,(err,results)=>{
+            if(err){
+              console.log(err)
+            }
+            res.redirect('/admin/viewfarmers')
+         })
+        
+     })
+}
+
+exports.getViewOrders = (req,res) => {
+    let sql = 'SELECT * FROM orders INNER JOIN client ON orders.clientID = client.clientID '
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+      let orders = []
+      if(err){
+          console.log(err)
+      }
+
+      if(results.length > 0){
+          orders = results
+      }
+
+      res.render('admin/vieworders',{ orders : orders })
+    })
+}
+
+exports.removeOrder = (req,res) =>{
+    let sql = `DELETE FROM orders WHERE id =${req.params.id}`
+   
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+          res.redirect('/admin/vieworders')
+          return
+        }
+
+        res.redirect('/admin/vieworders')
+        
+     })
+}
+
+exports.getViewProducts = (req,res) => {
+    let sql = 'SELECT * FROM farmer_uploads INNER JOIN farmer ON farmer_uploads.farmerID = farmer.farmerID '
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+      let products = []
+      if(err){
+          console.log(err)
+      }
+
+      if(results.length > 0){
+          products = results
+      }
+      res.render('admin/viewproducts',{ products : products })
+    })
+}
+
+exports.removeProduct = (req,res) =>{
+    let sql = `DELETE FROM farmer_uploads WHERE id =${req.params.id}`
+   
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+        }
+
+        res.redirect('/admin/viewproducts')
+     })
 }
