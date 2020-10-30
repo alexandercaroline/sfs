@@ -151,7 +151,7 @@ exports.farmersignup = async (req,res) =>{
         error = true
     }
     
-    if (phoneError == undefined){
+    if (errors.phoneError == undefined){
         if((phone.charAt(0) == '0' && phone.length != 10) || (phone.charAt(0) == '2' && phone.length != 12)){
             errors.phoneError = "Enter valid phone number"
             error = true
@@ -317,7 +317,7 @@ async function sendMail(res,req,user){
     let response = await mailer.sendMail(req.body.email,"SFS PASSWORD RESET CODE",`${code}`)
   
     if(response){
-         let sql = `INSERT INTO  reset_code(email,code,user) VALUES('${req.body.email}','${code}',''${user}')`
+         let sql = `INSERT INTO  reset_code(email,code,user) VALUES('${req.body.email}','${code}','${user}')`
          db.query(sql,(err,results) => {
              if(err){
                 console.log(err)
@@ -391,10 +391,12 @@ exports.changePassword = (req,res) =>{
         }
        
         if(results.length > 0){
-            let newHash =  await auth.hash(password)
-            let sql= `UPDATE ${result.user} SET password = ${newHash} WHERE email = ${req.body.email}`
-            db.query(sql,async (err,results)=>{ 
+            let newHash =  await auth.hash(req.body.password)
+            let sql= `UPDATE ${results[0].user} SET password = '${newHash}' WHERE email ='${results[0].email}'`
+            console.log(sql)
+            db.query(sql,async (err,resu)=>{ 
                 if(err){
+                    console.log(err)
                     res.render('changepassword',{
                         errors : { passwordError : "Error changing password " },
                         models : {
@@ -405,7 +407,12 @@ exports.changePassword = (req,res) =>{
                     return
                 }
 
-                res.redirect('/login')
+                sql = `DELETE FROM reset_code WHERE code = '${req.body.code}'`
+                db.query(sql,async (err,resu)=>{ 
+                    res.redirect('/login')
+                })
+
+                
             })
            
         }else{
