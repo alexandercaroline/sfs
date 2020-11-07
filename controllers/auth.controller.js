@@ -57,6 +57,7 @@ exports.login = (req,res) => {
                 req.session.userId = results[0].farmerID
                 req.session.isFarmer = true
                 req.session.isAdmin = false
+                req.session.name = results[0].fname + " " +results[0].lname
                 res.redirect('/welcome')
                 return
             }
@@ -84,6 +85,7 @@ exports.login = (req,res) => {
                     req.session.userId = results[0].clientID
                     req.session.isFarmer = false
                     req.session.isAdmin = false
+                    req.session.name = results[0].fname + " " +results[0].lname
                     res.redirect('/welcome')
                     return
                 }

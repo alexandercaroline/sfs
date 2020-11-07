@@ -58,6 +58,10 @@ router.get('/clientsignup',(req,res)=>{
 
 router.get('/cropdetails/:crop',con.cropdetails)
 
+router.get('/chat',(req,res)=>{
+    res.render('chat',{name :req.session.name})
+})
+
 router.use('/auth',authroutes)
 router.use('/admin',adminRouter)
 router.use('/farmer',farmerRouter)

@@ -2,9 +2,13 @@ const express = require('express')
 let cors = require('cors')
 let app = express()
 let port = 3000
-
+const path = require('path')
+const socketIO = require('socket.io')
+const bodyParser = require('body-parser')
+//require our router
+const router = require('./routes/routes')
 app.locals.baseURL = "http://localhost:3000"
-app.use(cors())
+
 let cookieParser  = require('cookie-parser') 
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
@@ -19,9 +23,7 @@ var options = {
  
 var sessionStore = new MySQLStore(options)
 
-app.use(cookieParser())
-
-app.use(session({
+ app.use(cors()).use(cookieParser()).use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
     store: sessionStore,
@@ -29,32 +31,36 @@ app.use(session({
     saveUninitialized: false,
     cookie: { maxAge: 60000000 }
     
-}));
+}))
 //set tepmlate engine
-app.set('view engine', 'ejs')
-
-const bodyParser = require('body-parser')
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded());
+.set('view engine', 'ejs')
+.use(bodyParser.json())
+.use(bodyParser.urlencoded())
  //parse type application/json
-
+// //use our router
+.use(router)
+//set the path to static files
+.use(express.static(__dirname+'/public/'))
 //require our db module
+
+
 let db = require('./db/db')
 
 //set our db to be used globally
 global.db = db
 global.cropsBackup = []
 
-//require our router
-const router = require('./routes/routes')
+  
+//to store user id and socket id
+let conns = {}
+//store user id and username
+let users = {}
 
-// //use our router
-app.use(router)
-
-//set the path to static files
-app.use(express.static(__dirname+'/public/'))
-
-
-app.listen(port,()=>{
+ app.listen(port,()=>{
   console.log("Started server")
 })
+
+
+
+
+
