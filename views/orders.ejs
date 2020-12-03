@@ -1,11 +1,30 @@
 <%- include('./partials/farmerheader') %>
 
+<div class="container-fluid">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-6 center-block" style="float:none;">
+          <div style="float: none;" class="col-md-8 center-block">
+            <form class="form-inline" method="POST" action="/farmer/searchorders">
+                <div class="form-group">
+                  <label>PRODUCT NAME :</label>
+                  <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<h3 class="text-center">RESULTS</h3>
 <% products.forEach(crop => { %>
-    <div class="container py-3 mt-4" style="margin-bottom: 20px;">
+     
+    <div class="container py-3 mt-4" style="margin-bottom: 30px;">
         <div class="card">
           <div class="row ">
               
-              <div class="col-md-8 px-3">
+              <div class="col-md-6 px-3 center-block" style="float: none;">
                 <div class="card-block px-3">
                   <h4 class="card-title">Product: <%=crop.name%></h4>
                   <p class="card-text">Quantity: <%=crop.quantity%> </p>

@@ -2,14 +2,25 @@
 
 <div class="container">
     <h2 class="text-center">View Farmers</h2>
+    <div class="row justfiy-content-center " style="margin-bottom: 20px;">
+      <div class="col-md-10">
+        <form action="/admin/searchfarmer" class="form-inline" method="post" >
+            FROM DATE : <input name="from" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            TO DATE : <input name="to" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            <button class="btn btn-primary">SEARCH </button>
+        </form>
+      </div>
+    </div>
     <table class="table table-bordered" id="farmerTable">
       <thead>
         <tr>
+          <th scope="col">Date</th>
           <th scope="col">Name</th>
           <th scope="col">Phone Number</th>
           <th scope="col">Email</th>
           <th scope="col">County</th>
           <th scope="col">Location</th>
+         
           <th>Actions</th>
        
         </tr>
@@ -19,6 +30,7 @@
 
         <% farmers.forEach(farmer => { %>
           <tr>
+            <td><%=new Date(farmer.created).toDateString()%></td>
             <td><%=`${farmer.fname} ${farmer.lname}`%></td>
             <td><%=farmer.phoneno%></td>
             <td><%=farmer.email%></td>

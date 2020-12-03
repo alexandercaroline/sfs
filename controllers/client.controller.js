@@ -111,3 +111,19 @@ exports.deleteOrder = (req,res) =>{
      res.redirect('/client/myorders')
   })
 }
+
+exports.searchSales =(req,res)=>{
+    let sql = `SELECT * FROM farmer_uploads JOIN farmer ON farmer_uploads.farmerID = farmer.farmerID WHERE sold = 0 AND farmer_uploads.name like '%${req.body.name}%'`
+
+    db.query(sql,(err,results) => {
+         if(err){
+            home(req,res)
+            return
+         }
+
+         res.render('onsale',{
+             crops : cropsBackup,
+             products: results
+         })
+    })
+}

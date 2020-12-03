@@ -19,4 +19,5 @@ router.post('/makeorder',con.makeOrder)
 
 router.get('/myorders',con.myorders)
 router.get('/removeorder/:id',con.deleteOrder)
+router.post('/searchsales',con.searchSales)
 module.exports = router

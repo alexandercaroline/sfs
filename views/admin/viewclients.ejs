@@ -5,6 +5,7 @@
     <table class="table table-bordered" id="farmerTable">
       <thead>
         <tr>
+          <th> Date</th>
           <th scope="col">Name</th>
           <th scope="col">Phone Number</th>
           <th scope="col">Email</th>
@@ -15,6 +16,7 @@
       <tbody>
        <% clients.forEach(client => { %>
         <tr>
+          <td><%=new Date(client.created).toDateString()%></td>
           <td><%=`${client.fname} ${client.lname}`%></td>
           <td><%=client.phoneno%></td>
           <td><%=client.email%></td>

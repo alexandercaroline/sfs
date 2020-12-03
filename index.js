@@ -23,7 +23,7 @@ var options = {
  
 var sessionStore = new MySQLStore(options)
 
- app.use(cors()).use(cookieParser()).use(session({
+app.use(cors()).use(cookieParser()).use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
     store: sessionStore,
@@ -50,17 +50,7 @@ let db = require('./db/db')
 global.db = db
 global.cropsBackup = []
 
-  
-//to store user id and socket id
-let conns = {}
-//store user id and username
-let users = {}
-
- app.listen(port,()=>{
+app.listen(port,()=>{
   console.log("Started server")
 })
-
-
-
-
 

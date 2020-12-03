@@ -115,7 +115,7 @@ exports.farmerhome= (req,res) => {
 
   db.query(sql,(err,results) => {
        if(err){
-          home(req,res)
+          res.redirect('/')
           return
        }
 
@@ -124,4 +124,21 @@ exports.farmerhome= (req,res) => {
            products: results
        })
   })
+ }
+
+ exports.searchOrders = (req,res)=>{
+   let sql = `SELECT * FROM orders JOIN client ON orders.clientID = client.clientID AND orders.name like '%${req.body.name}%'`
+
+   db.query(sql,(err,results) => {
+        if(err){
+           console.log(err)
+           res.redirect('/')
+           return
+        }
+ 
+        res.render('orders',{
+            crops : cropsBackup,
+            products: results
+        })
+   })
  }

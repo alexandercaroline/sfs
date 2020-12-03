@@ -37,10 +37,8 @@ router.get('/order/remove/:id',admincon.removeOrder)
 router.get('/viewproducts',admincon.getViewProducts)
 router.get('/product/remove/:id',admincon.removeProduct)
 
-
-
 router.post('/addcrop',admincon.addcrop)
-
+router.post('/searchfarmer',admincon.searchFarmer)
 
 
 module.exports = router

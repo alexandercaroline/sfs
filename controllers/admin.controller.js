@@ -226,3 +226,21 @@ exports.removeProduct = (req,res) =>{
         res.redirect('/admin/viewproducts')
      })
 }
+
+exports.searchFarmer = (req,res) => {
+   
+    let sql = `SELECT * FROM farmer WHERE created >= '${req.body.from}' AND created  <= '${req.body.to}' `
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+        let farmers = []
+        if(err){
+            console.log(err)
+        }
+
+        if(results.length > 0){
+            farmers = results
+        }
+
+        res.render('admin/viewfarmers',{ farmers : farmers })
+    })
+}

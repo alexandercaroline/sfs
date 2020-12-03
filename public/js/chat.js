@@ -99,24 +99,14 @@ $(document).ready(function(){
     })
     
      //get socket io conection 
-     socket = io("//localhost:5000")
+     socket = io('//localhost:5000')
 
   
       //use data from store
         if(selectedimg == "")selectedimg = "images/man.png"
-        var user = {
-          id : ID,
-          name : username,
-          avatar:selectedimg
-        }
       
-        //send user details to server
-        socket.emit('id',JSON.stringify(user))
-
-        
-        
-        //request for logged in users
-        socket.emit('online')
+      
+       
 
         //setup profile image
         $("#profile-img").attr('src',selectedimg)
@@ -133,9 +123,21 @@ $(document).ready(function(){
    //setup socket
   function setupSocket(){
          socket.on('connect',()=>{
+              var user = {
+                id : ID,
+                name : username,
+                avatar:selectedimg
+              }
              //checks if username is availabe then sets it
-   
+             console.log("MOMOOMOM")
+              //send user details to server
+              socket.emit('id',JSON.stringify(user))
+
+              //request for logged in users
+              socket.emit('online')
          })    
+
+         
         //when message is received
         socket.on('message',function(msg){
            var ms = JSON.parse(msg) 

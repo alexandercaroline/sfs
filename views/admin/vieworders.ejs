@@ -5,6 +5,7 @@
     <table class="table table-bordered" id="orderTable">
       <thead>
         <tr>
+          <th>Date</th>
           <th scope="col"> Client Name</th>
           <th scope="col">Crop Name</th>
           <th scope="col">Quantity</th>
@@ -21,6 +22,7 @@
         
         <% orders.forEach(order => { %>
           <tr>
+            <td><%=new Date(order.created).toDateString()%></td>
             <td><%=`${order.fname} ${order.lname}`%></td>
             <td><%=order.name%></td>
             <td><%=order.quantity%></td>
