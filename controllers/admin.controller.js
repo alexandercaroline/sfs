@@ -244,3 +244,55 @@ exports.searchFarmer = (req,res) => {
         res.render('admin/viewfarmers',{ farmers : farmers })
     })
 }
+
+
+exports.searchClient = (req,res) => {
+   
+    let sql = `SELECT * FROM client WHERE created >= '${req.body.from}' AND created  <= '${req.body.to}' `
+    db.query(sql,async (err,results)=>{
+        // console.log("search")
+        let clients = []
+        if(err){
+            console.log(err)
+        }
+
+        if(results.length > 0){
+            clients = results
+        }
+
+        res.render('admin/viewclients',{ clients : clients })
+    })
+}
+
+exports.activateFarmer = (req,res) =>{
+    let sql = `UPDATE farmer SET active =  1 WHERE farmerID =${req.params.id}`
+
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+          res.redirect('/admin/viewfarmers')
+          return
+        }
+
+            res.redirect('/admin/viewfarmers')
+       
+        
+     })
+}
+
+exports.deactivateFarmer = (req,res) =>{
+    let sql = `UPDATE farmer SET active =  0 WHERE farmerID =${req.params.id}`
+
+    db.query(sql,(err,results)=>{
+        if(err){
+          console.log(err)
+          res.redirect('/admin/viewfarmers')
+          return
+        }
+
+      
+            res.redirect('/admin/viewfarmers')
+
+        
+     })
+}

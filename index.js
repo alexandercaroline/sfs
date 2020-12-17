@@ -49,7 +49,7 @@ let db = require('./db/db')
 //set our db to be used globally
 global.db = db
 global.cropsBackup = []
-
+global.success = false;
 app.listen(port,()=>{
   console.log("Started server")
 })

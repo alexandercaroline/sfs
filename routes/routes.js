@@ -59,7 +59,7 @@ router.get('/clientsignup',(req,res)=>{
 router.get('/cropdetails/:crop',con.cropdetails)
 
 router.get('/chat',(req,res)=>{
-    res.render('chat',{name :req.session.name})
+    res.redirect(`http://localhost:5000?id=${req.session.userId}&name=${req.session.name}`)
 })
 
 router.use('/auth',authroutes)

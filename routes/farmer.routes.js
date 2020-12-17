@@ -24,6 +24,7 @@ router.post('/addproduct',upload.single('file'),con.addproduct)
 router.get('/myproducts',con.getMyProducts)
 router.get('/setsoldproduct/:id',con.setSold)
 router.get('/orders',con.orderedProducts)
-
+router.get('/edit',con.getEditProfile)
+router.post('/edit',con.editProfile)
 router.post('/searchorders',con.searchOrders)
 module.exports = router

@@ -20,6 +20,7 @@
           <th scope="col">Email</th>
           <th scope="col">County</th>
           <th scope="col">Location</th>
+          <th>MPESA CODE</th>
          
           <th>Actions</th>
        
@@ -36,10 +37,15 @@
             <td><%=farmer.email%></td>
             <td><%=farmer.county%></td>
             <td><%=farmer.location%></td>
+            <td><%=farmer.mpesa%></td>
              <td>
                  <div class="row">
                    
                     <div class="col-xs-12">
+                      <form method="GET" action="/admin/farmer/<%=farmer.active == 1 ? 'deactivate': 'activate'%>/<%=farmer.farmerID%>" >
+                        <button class="btn btn-sm btn-primary"><%=farmer.active == 1 ? 'De-activate': 'Activate'%></button>
+                     </form>
+                     <br>
                       <form method="GET" action="/admin/farmer/remove/<%=farmer.farmerID%>" >
                          <button class="btn btn-sm btn-danger">Remove</button>
                       </form>

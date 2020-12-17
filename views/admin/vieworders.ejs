@@ -2,6 +2,15 @@
 
 <div class="container">
     <h2 class="text-center">View Orders</h2>
+    <div class="row justfiy-content-center " style="margin-bottom: 20px;">
+      <div class="col-md-10">
+        <form action="/admin/searchclient" class="form-inline" method="post" >
+            FROM DATE : <input name="from" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            TO DATE : <input name="to" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            <button class="btn btn-primary">SEARCH </button>
+        </form>
+      </div>
+    </div>
     <table class="table table-bordered" id="orderTable">
       <thead>
         <tr>
@@ -9,7 +18,7 @@
           <th scope="col"> Client Name</th>
           <th scope="col">Crop Name</th>
           <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
+          <th scope="col">Description</th>
           <th>Actions</th>
        
         </tr>

@@ -13,7 +13,15 @@
         </tr>
       </thead>
       <tbody>
+
+        <%if(products.length == 0){%>
+             <td colspan="4" >
+                NO PRODUCTS AVAILABLE
+             </td>
        
+          <%} %>
+
+          
          <%products.forEach((product)=>{%>
          <tr>
           <td scope="row"><%=product.name%></td>
@@ -38,10 +46,17 @@
         <%})%>
       </tbody>
     </table>
-    
+    <%if(products.length == 0){%>
+       <a href="/farmer/addproduct" class="btn btn-primary btn-lg">ADD PRODUCT</a>
+   <%} %>
     </div>
 
-      
+    <%if(products.length == 0){%>
+    
+      <div style="margin-bottom: 250px;"></div>
+
+   <%} %>
+
 <%- include('../partials/footer') %>
   
   

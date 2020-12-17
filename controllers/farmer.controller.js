@@ -2,6 +2,8 @@
 const fs = require("fs")
 const path = require('path')
 
+let auth = require('../auth/auth')
+
 exports.farmerhome= (req,res) => {
     let sql = "SELECT * FROM crops"
  
@@ -141,4 +143,57 @@ exports.farmerhome= (req,res) => {
             products: results
         })
    })
+ }
+
+ exports.getEditProfile = (req,res) =>{
+    let sql = `SELECT * FROM farmer WHERE farmerID =  ${req.session.userId}`
+
+    db.query(sql,(err,results) => {
+      if(err){
+         console.log(err)
+         res.redirect('/')
+         return
+      }
+
+      res.render('edit',{
+         crops : cropsBackup,
+         farmer : results[0],
+         success : success ? true : null
+     }
+     )
+  })
+   
+ }
+
+ exports.editProfile = async (req,res)=>{
+    let sql = `UPDATE farmer SET fname = '${req.body.fname}',lname = '${req.body.lname}',email = '${req.body.email}' WHERE farmerID = ${req.session.userId}`
+     
+    db.query(sql,async(err,results) => {
+      
+      if(err){
+         res.redirect('/farmer/edit');
+         return
+      }
+
+      if(req.body.password != ""){
+          //hash pass
+         let hash = await auth.hash(req.body.password)
+         sql = `UPDATE farmer SET password = '${hash}' WHERE farmerID = ${req.session.userId}`
+
+         db.query(sql,(err,results) => {
+            if(err){
+               console.log(err)
+               res.redirect('/farmer/edit');
+               return
+            }
+            success=true
+            res.redirect('/farmer/edit');
+         })
+      }else{
+          success=true
+          res.redirect('/farmer/edit');
+      }
+    
+  })
+
  }

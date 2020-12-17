@@ -2,7 +2,16 @@
 
 <div class="container">
     <h2 class="text-center">View Clients</h2>
-    <table class="table table-bordered" id="farmerTable">
+    <div class="row justfiy-content-center " style="margin-bottom: 20px;">
+      <div class="col-md-10">
+        <form action="/admin/searchclient" class="form-inline" method="post" >
+            FROM DATE : <input name="from" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            TO DATE : <input name="to" data-date-format="yyyy-mm-dd" data-provide="datepicker">
+            <button class="btn btn-primary">SEARCH </button>
+        </form>
+      </div>
+    </div>
+    <table class="table table-bordered" id="clientTable">
       <thead>
         <tr>
           <th> Date</th>

@@ -30,6 +30,8 @@ router.get('/client/remove/:id',admincon.removeClient)
 
 router.get('/viewfarmers',admincon.getViewFarmers)
 router.get('/farmer/remove/:id',admincon.removeFarmer)
+router.get('/farmer/activate/:id',admincon.activateFarmer)
+router.get('/farmer/deactivate/:id',admincon.deactivateFarmer)
 
 router.get('/vieworders',admincon.getViewOrders)
 router.get('/order/remove/:id',admincon.removeOrder)
@@ -39,6 +41,8 @@ router.get('/product/remove/:id',admincon.removeProduct)
 
 router.post('/addcrop',admincon.addcrop)
 router.post('/searchfarmer',admincon.searchFarmer)
+
+router.post('/searchclient',admincon.searchClient)
 
 
 module.exports = router

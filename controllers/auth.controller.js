@@ -28,7 +28,7 @@ exports.login = (req,res) => {
     }
 
     
-    let sql = "SELECT * FROM farmer WHERE  email = '"+req.body.email+"'"
+    let sql = "SELECT * FROM farmer WHERE  email = '"+req.body.email+"' AND active = 1"
     
     //query the db
     db.query(sql,async (err,results)=>{
@@ -60,6 +60,18 @@ exports.login = (req,res) => {
                 req.session.name = results[0].fname + " " +results[0].lname
                 res.redirect('/welcome')
                 return
+            }else{
+                res.render('login',{
+                    errors : {
+                        passwordError : "Invalid email or password",
+                        emailError:"Invalid email or password"
+                    },
+                    models : {
+                        password : req.body.password,
+                        email : req.body.email
+                    }
+                })
+                return
             }
         }else {
           let sql = "SELECT * FROM client WHERE  email = '"+req.body.email+"'"
@@ -88,6 +100,17 @@ exports.login = (req,res) => {
                     req.session.name = results[0].fname + " " +results[0].lname
                     res.redirect('/welcome')
                     return
+                }else{
+                    res.render('login',{
+                        errors : {
+                            passwordError : "Invalid email or password",
+                            emailError:"Invalid email or password"
+                        },
+                        models : {
+                            password : req.body.password,
+                            email : req.body.email
+                        }
+                    })
                 }
             }else{
                 res.render('login',{
@@ -136,9 +159,10 @@ exports.farmersignup = async (req,res) =>{
     let password = req.body.password
     //console.log("P"+password)
     let conPassword = req.body.conPassword   
+    let mpesa = req.body.mpesa
 
     let error = false
-    let errors = checkEmpty(password,email,fName,lName,phone,conPassword,location,county)
+    let errors = checkEmpty(password,email,fName,lName,phone,conPassword,location,county,mpesa)
     error = errors.error
 
     
@@ -170,7 +194,8 @@ exports.farmersignup = async (req,res) =>{
             password: password,
             conPassword : conPassword,
             location : location,
-            county : county
+            county : county,
+            mpesa : mpesa
         }})
         return
     }
@@ -180,7 +205,7 @@ exports.farmersignup = async (req,res) =>{
     let hash = await auth.hash(password)
 
       //insterts the created user with the hashed pasword to db
-    let sql = `INSERT INTO farmer(email,fname,lname,phoneno,password,location,county) VALUES('${email}','${fName}','${lName}','${phone}','${hash}','${location}','${county}')`
+    let sql = `INSERT INTO farmer(email,fname,lname,phoneno,password,location,county,mpesa) VALUES('${email}','${fName}','${lName}','${phone}','${hash}','${location}','${county}','${mpesa}')`
         
       db.query(sql,(err,results) =>{
           if(err){
@@ -193,12 +218,17 @@ exports.farmersignup = async (req,res) =>{
                 password: password,
                 conPassword : conPassword,
                 location : location,
-                county : county
+                county : county,
+                mpesa :mpesa
             }})
               return
           }
 
-          res.render('login')
+          res.render('farmersignup',{
+              errors : [],
+              models: {},
+              success : true
+          })
       })
   
 } 
